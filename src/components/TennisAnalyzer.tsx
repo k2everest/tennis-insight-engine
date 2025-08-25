@@ -4,7 +4,16 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Progress } from '@/components/ui/progress';
 import { useToast } from '@/hooks/use-toast';
-import { Play, Pause, RotateCcw, Download } from 'lucide-react';
+import { Play, Pause, RotateCcw, Download, Eye } from 'lucide-react';
+import { TennisAnalysis3D } from './TennisAnalysis3D';
+
+interface MovementPoint3D {
+  x: number;
+  y: number;
+  z: number;
+  timestamp: number;
+  speed: number;
+}
 
 interface AnalysisData {
   playerHeatmap: number[][];
@@ -17,6 +26,13 @@ interface AnalysisData {
     shots: number;
     winner: 'player1' | 'player2' | 'error';
   }>;
+  movement3D: MovementPoint3D[];
+  ballTrajectory3D: MovementPoint3D[];
+  insights3D: {
+    averageSpeed: number;
+    courtCoverage: number;
+    efficiency: number;
+  };
 }
 
 export const TennisAnalyzer = () => {
@@ -30,6 +46,7 @@ export const TennisAnalyzer = () => {
   const [analysisData, setAnalysisData] = useState<AnalysisData | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [videoLoaded, setVideoLoaded] = useState(false);
+  const [show3D, setShow3D] = useState(false);
 
   const downloadVideo = useCallback(async (url: string) => {
     try {
@@ -113,6 +130,23 @@ export const TennisAnalyzer = () => {
         await new Promise(resolve => setTimeout(resolve, 10));
       }
 
+      // Gerar dados 3D realistas para demonstração
+      const movement3D: MovementPoint3D[] = Array(50).fill(null).map((_, i) => ({
+        x: (Math.random() - 0.5) * 20,
+        y: 0,
+        z: (Math.random() - 0.5) * 10,
+        timestamp: i * 100,
+        speed: Math.random() * 30 + 10
+      }));
+
+      const ballTrajectory3D: MovementPoint3D[] = Array(30).fill(null).map((_, i) => ({
+        x: (Math.random() - 0.5) * 22,
+        y: Math.random() * 3 + 0.5,
+        z: (Math.random() - 0.5) * 10,
+        timestamp: i * 150,
+        speed: Math.random() * 50 + 30
+      }));
+
       // Dados simulados baseados na análise
       const analysisResult: AnalysisData = {
         playerHeatmap,
@@ -125,6 +159,13 @@ export const TennisAnalyzer = () => {
           shots: Math.floor(Math.random() * 20) + 3,
           winner: Math.random() > 0.5 ? 'player1' : 'player2' as 'player1' | 'player2',
         })),
+        movement3D,
+        ballTrajectory3D,
+        insights3D: {
+          averageSpeed: 24.5,
+          courtCoverage: 78.3,
+          efficiency: 85.7
+        }
       };
 
       setAnalysisData(analysisResult);
@@ -290,14 +331,39 @@ export const TennisAnalyzer = () => {
                   <div className="text-sm text-muted-foreground">Erros</div>
                 </div>
 
-                <Button className="w-full" variant="outline">
-                  <Download className="h-4 w-4 mr-2" />
-                  Baixar Relatório
-                </Button>
+                <div className="space-y-2">
+                  <Button 
+                    className="w-full" 
+                    variant="outline"
+                    onClick={() => setShow3D(!show3D)}
+                  >
+                    <Eye className="h-4 w-4 mr-2" />
+                    {show3D ? 'Ocultar' : 'Mostrar'} Análise 3D
+                  </Button>
+                  <Button className="w-full" variant="outline">
+                    <Download className="h-4 w-4 mr-2" />
+                    Baixar Relatório
+                  </Button>
+                </div>
               </CardContent>
             </Card>
           )}
         </div>
+      )}
+
+      {analysisData && show3D && (
+        <Card className="bg-gradient-to-br from-primary/5 to-secondary/5 border-primary/20">
+          <CardHeader>
+            <CardTitle className="text-primary">Análise 3D Profissional</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <TennisAnalysis3D
+              playerMovement={analysisData.movement3D}
+              ballTrajectory={analysisData.ballTrajectory3D}
+              insights={analysisData.insights3D}
+            />
+          </CardContent>
+        </Card>
       )}
 
       {analysisData && (
