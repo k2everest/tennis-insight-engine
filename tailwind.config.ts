@@ -61,6 +61,18 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				tennis: {
+					court: 'hsl(var(--tennis-court))',
+					'court-foreground': 'hsl(var(--tennis-court-foreground))',
+					ball: 'hsl(var(--tennis-ball))',
+					'ball-foreground': 'hsl(var(--tennis-ball-foreground))',
+					net: 'hsl(var(--tennis-net))',
+					'net-foreground': 'hsl(var(--tennis-net-foreground))',
+					player1: 'hsl(var(--tennis-player1))',
+					'player1-foreground': 'hsl(var(--tennis-player1-foreground))',
+					player2: 'hsl(var(--tennis-player2))',
+					'player2-foreground': 'hsl(var(--tennis-player2-foreground))'
 				}
 			},
 			borderRadius: {

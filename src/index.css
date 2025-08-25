@@ -53,6 +53,18 @@ All colors MUST be HSL.
     --sidebar-border: 220 13% 91%;
 
     --sidebar-ring: 217.2 91.2% 59.8%;
+
+    /* Tennis color scheme */
+    --tennis-court: 102 44% 35%;
+    --tennis-court-foreground: 0 0% 98%;
+    --tennis-ball: 65 92% 75%;
+    --tennis-ball-foreground: 222.2 84% 4.9%;
+    --tennis-net: 0 0% 100%;
+    --tennis-net-foreground: 222.2 84% 4.9%;
+    --tennis-player1: 210 100% 50%;
+    --tennis-player1-foreground: 0 0% 98%;
+    --tennis-player2: 0 84% 60%;
+    --tennis-player2-foreground: 0 0% 98%;
   }
 
   .dark {
@@ -91,6 +103,18 @@ All colors MUST be HSL.
     --sidebar-accent-foreground: 240 4.8% 95.9%;
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+
+    /* Tennis dark mode colors */
+    --tennis-court: 102 30% 25%;
+    --tennis-court-foreground: 0 0% 98%;
+    --tennis-ball: 65 85% 65%;
+    --tennis-ball-foreground: 222.2 84% 4.9%;
+    --tennis-net: 0 0% 90%;
+    --tennis-net-foreground: 222.2 84% 4.9%;
+    --tennis-player1: 210 80% 60%;
+    --tennis-player1-foreground: 0 0% 98%;
+    --tennis-player2: 0 75% 55%;
+    --tennis-player2-foreground: 0 0% 98%;
   }
 }
 
